@@ -1,0 +1,67 @@
+{
+  "name": "api-porto-fianca",
+  "engines": {
+    "node": "8.9.4"
+  },
+  "scripts": {
+    "shell": "firebase experimental:functions:shell",
+    "start": "npm run shell",
+    "logs": "firebase functions:log",
+    "build": "mkdir -p functions && cp package.json functions/package.json && babel src -d functions --copy-files",
+    "serve": "firebase serve --only functions -o 0.0.0.0",
+    "deploy:prod": "firebase use porto-seguro-r-financeiros && firebase deploy --only functions",
+    "deploy:stg": "firebase use porto-seguro-r-financeiros-stg && firebase deploy --only functions",
+    "watch": "npm-watch",
+    "precommit": "lint-staged"
+  },
+  "watch": {
+    "build": "src/**/*.*"
+  },
+  "dependencies": {
+    "@google-cloud/debug-agent": "^2.3.2",
+    "@google-cloud/pubsub": "^0.22.2",
+    "@google-cloud/trace-agent": "^2.4.0",
+    "babel-polyfill": "^6.26.0",
+    "body-parser": "^1.18.3",
+    "btoa": "^1.1.2",
+    "cors": "^2.8.5",
+    "express": "^4.16.2",
+    "firebase": "^4.13.1",
+    "firebase-admin": "5.8.1",
+    "firebase-functions": "^0.8.1",
+    "helmet": "^3.15.0",
+    "isomorphic-fetch": "^2.2.1",
+    "joi": "^14.3.0",
+    "moment-timezone": "^0.5.23",
+    "uuid": "^3.3.2"
+  },
+  "private": true,
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.0.20",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb-base": "7.1.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jest": "^22.0.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^1.1.3",
+    "lint-staged": "^8.0.4",
+    "nodemon": "^1.18.3",
+    "npm-watch": "^0.3.0",
+    "prettier": "^1.14.3"
+  },
+  "lint-staged": {
+    "src/*.{js}": [
+      "prettier --write --single-quote --no-semi",
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}
